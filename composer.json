@@ -1,0 +1,26 @@
+{
+  "name": "cable/cable-facades",
+  "type": "library",
+  "description": "Cable Framework, New Professional PHP Framework System Libraries",
+  "license": "MIT",
+  "homepage": "http://gemframework.com",
+  "support": {
+    "source": "https://github.com/AnonymPHP/Anonym-Library"
+  },
+  "authors": [
+    {
+      "name": "Vahit Şerif Sağlam",
+      "email": "vahit.serif119@gmail.com",
+      "homepage": "http://www.vserifsaglam.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.5.9",
+  },
+  "autoload": {
+    "psr-4": {
+      "Cable\\Filesystem\\": "src/Cable/Components"
+    }
+  }
+}
