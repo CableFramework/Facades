@@ -3,9 +3,9 @@
   "type": "library",
   "description": "Cable Framework, New Professional PHP Framework System Libraries",
   "license": "MIT",
-  "homepage": "http://gemframework.com",
+  "homepage": "http://vserifsaglam.com",
   "support": {
-    "source": "https://github.com/AnonymPHP/Anonym-Library"
+    "source": "https://github.com/CableFramework"
   },
   "authors": [
     {
@@ -14,13 +14,13 @@
       "homepage": "http://www.vserifsaglam.com"
     }
   ],
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "require": {
     "php": ">=5.5.9"
   },
   "autoload": {
     "psr-4": {
-      "Cable\\Filesystem\\": "src/Cable/Components"
+      "Cable\\Facade\\": "src/Cable/Components"
     }
   }
 }
