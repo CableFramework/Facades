@@ -7,15 +7,15 @@
  */
 
 namespace Cable\Facade;
+
 /*
- * This file belongs to the AnoynmFramework
+ * This file belongs to the CableFramework
  *
  * @author vahitserifsaglam <vahit.serif119@gmail.com>
- * @see http://gemframework.com
+ * @see http://vserifsaglam.com
  *
  * Thanks for using
  */
-use Cable\Container\Container;
 
 /**
  * Class Facade
@@ -24,25 +24,12 @@ use Cable\Container\Container;
 class Facade
 {
     /**
-     * the instance of container
-     *
-     * @var Container
-     */
-    protected static $container;
-    /**
      * the resolved object instances
      *
      * @var array
      */
     protected static $resolvedInstance;
-    /**
-     * register the laravel container
-     *
-     * @param Container $container
-     */
-    public static function setApplication(Container $container){
-        static::$container = $container;
-    }
+
     /**
      * get the facade class
      *
@@ -53,10 +40,11 @@ class Facade
     {
         throw new FacadeException('i can not call myself');
     }
+
     /**
      * Resolve the facade root instance from the container.
      *
-     * @param  string  $name
+     * @param  string $name
      * @return mixed
      */
     protected static function resolveFacadeClass($name)
@@ -67,18 +55,55 @@ class Facade
         if (isset(static::$resolvedInstance[$name])) {
             return static::$resolvedInstance[$name];
         }
+
         return static::$resolvedInstance[$name] = static::$container[$name];
     }
+
+
     /**
-     * call the method in registered instances
-     *
-     * @param string $method the name of method
-     * @param array $args the variables for method
+     * @param $class
+     * @param $name
+     * @return \ReflectionMethod
+     * @throws FacadeException
+     */
+    private static function checkReturnedIsValidInstance($class, $name)
+    {
+        try {
+            return new \ReflectionMethod($class, $name);
+        } catch (\ReflectionException $exception) {
+            throw new FacadeException(
+                sprintf(
+                    'something went wrong with %s facade, message : %s',
+                    get_called_class(),
+                    $exception->getMessage()
+                )
+            );
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @throws FacadeException
      * @return mixed
      */
-    public static function __callStatic($method, $args = [])
+    public static function __callStatic($name, $arguments)
     {
-        $instance = static::resolveFacadeClass(static::getFacadeClass());
-        return call_user_func_array([$instance, $method], $args);
+        $class = static::resolveFacadeClass(
+            static::getFacadeClass()
+        );
+
+        $method = static::checkReturnedIsValidInstance(
+            $class,
+            $name
+        );
+
+
+        return $method->invoke(
+            $class,
+            $arguments
+        );
     }
+
+
 }
