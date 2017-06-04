@@ -7,4 +7,6 @@ namespace Cable\Facade;
  * @package Cable\Facade
  */
 class FacadeException extends \Exception
-{}
+{
+
+}
