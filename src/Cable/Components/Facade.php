@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: My
+ * Date: 05/10/2017
+ * Time: 18:07
+ */
 
 namespace Cable\Facade;
 
@@ -10,6 +16,7 @@ namespace Cable\Facade;
  *
  * Thanks for using
  */
+use Cable\Container\Container;
 use Cable\Container\ContainerInterface;
 
 /**
@@ -27,9 +34,25 @@ class Facade
 
 
     /**
-     * @var ContainerInterface
+     * @var Container
      */
-    protected static $container;
+    public static $container;
+
+    /**
+     * @return Container
+     */
+    public static function getContainer()
+    {
+        return self::$container;
+    }
+
+    /**
+     * @param Container $container
+     */
+    public static function setContainer(ContainerInterface $container)
+    {
+        self::$container = $container;
+    }
 
     /**
      * get the facade class
@@ -100,7 +123,7 @@ class Facade
         );
 
 
-        return $method->invoke(
+        return $method->invokeArgs(
             $class,
             $arguments
         );
