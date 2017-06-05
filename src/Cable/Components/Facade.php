@@ -122,7 +122,7 @@ class Facade
             $name
         );
 
-
+        // resolve the class
         return $method->invokeArgs(
             $class,
             $arguments
