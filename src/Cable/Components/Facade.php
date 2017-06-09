@@ -47,6 +47,8 @@ class Facade
     }
 
     /**
+     * register the instance of $container
+     *
      * @param Container $container
      */
     public static function setContainer(ContainerInterface $container)
@@ -98,7 +100,7 @@ class Facade
             throw new FacadeException(
                 sprintf(
                     'something went wrong with %s facade, message : %s',
-                    get_called_class(),
+                    static::class,
                     $exception->getMessage()
                 )
             );
